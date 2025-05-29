@@ -2,6 +2,7 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+odyssey = true
 
 remappings = ["@src/=src/", "@openzeppelin/=lib/openzeppelin-contracts/"]
 
