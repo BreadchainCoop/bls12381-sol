@@ -1,18 +1,60 @@
-## Foundry
+## BLS12381-sol
+```mermaid
+classDiagram
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+    class BLS12381Lib {
+        <<abstract>>
+        <<library>>
+        +address G1_ADD_PRECOMPILE
+        +address G1_MSM_PRECOMPILE
+        +address G2_ADD_PRECOMPILE
+        +address G2_MSM_PRECOMPILE
+        +address PAIRING_CHECK_PRECOMPILE
+        +address MAP_FP_TO_G1_PRECOMPILE
+        +address MAP_FP2_TO_G2_PRECOMPILE
+        +bytes G1_GENERATOR
+        +bytes G1_GENERATOR_NEG
+        +bytes G2_GENERATOR
+        +bytes G2_GENERATOR_NEG
+        +g1Generator()
+        +g2Generator()
+        +verifySignatureG1()
+        +verifySignatureG2()
+        +mulBaseG1()
+        +mulBaseG2()
+        +mulG1()
+        +mulG2()
+        +addG1()
+        +addG2()
+        +mapFpToG1()
+        +mapFp2ToG2()
+        +x()
+        +y()
+        +mem()
+    }
 
-Foundry consists of:
+    class RFC9380 {
+        <<abstract>>
+        +uint256 B_IN_BYTES
+        +uint256 S_IN_BYTES
+        +uint256 L
+        +bytes P
+        +string HASH_TO_G1_DST
+        +string HASH_TO_G2_DST
+        +hashToG1()
+        +hashToG2()
+        +hashToFp()
+        +hashToFp2()
+        +expandMessageXMD()
+        +I2OSP()
+    }
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+
+```
 
 ## Documentation
 
-https://book.getfoundry.sh/
-
+A utility for verifying BLS12-381 signatures are defined by [EIP2537](https://eips.ethereum.org/EIPS/eip-2537)
 ## Usage
 
 ### Build
