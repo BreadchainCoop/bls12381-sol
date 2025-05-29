@@ -128,44 +128,78 @@ abstract contract HashToFieldTestVectors is BaseTestVectors {
         vectors = new HashToFieldTestVector[](10);
         vectors[0] = HashToFieldTestVector({
             message: "",
-            elements: __fix([hex"0cbd374d40a9291b22d1924fd653ee1835da25d3d8829c6721e651d8b1b2eea7de9cf8c176062a1f5b306c858213a680"])
+            elements: __fix(
+                [hex"0cbd374d40a9291b22d1924fd653ee1835da25d3d8829c6721e651d8b1b2eea7de9cf8c176062a1f5b306c858213a680"]
+            )
         });
         vectors[1] = HashToFieldTestVector({
             message: "",
-            elements: __fix([hex"01aacb6f986c447f74d856522a91f55e6a50d32f2d5eb6cd41d9fdcaa78cf6f2441407ddf22391ee5d7244b3599e70a7",
-            hex"16e3f793af811480640340a4776a54c7c86be29f182662603ab73f4c8042ba60eed2b9b14980792b65af9436269a71b3"])
+            elements: __fix(
+                [
+                    hex"01aacb6f986c447f74d856522a91f55e6a50d32f2d5eb6cd41d9fdcaa78cf6f2441407ddf22391ee5d7244b3599e70a7",
+                    hex"16e3f793af811480640340a4776a54c7c86be29f182662603ab73f4c8042ba60eed2b9b14980792b65af9436269a71b3"
+                ]
+            )
         });
         vectors[2] = HashToFieldTestVector({
             message: "abc",
-            elements: __fix([hex"06c9df9d8c1eed18d597ef39a5a3f3578c5146aa9a454a54b9157e45570baaa58d6ea34f7fec3c1a849e11a586471e3a"])
+            elements: __fix(
+                [hex"06c9df9d8c1eed18d597ef39a5a3f3578c5146aa9a454a54b9157e45570baaa58d6ea34f7fec3c1a849e11a586471e3a"]
+            )
         });
         vectors[3] = HashToFieldTestVector({
             message: "abc",
-            elements: __fix([hex"0cc90c571277f8f08a9100a16b7e41f9cc66e66399cccee4c961844e2702db67493740cf5135be15ff6464db11c670c0", hex"03bb970213f1fa688aa4539d57fa570794d1940d8119ae760fb9179087170f1bd1e6677472ea10a5b8796e2a9c71154f"])
+            elements: __fix(
+                [
+                    hex"0cc90c571277f8f08a9100a16b7e41f9cc66e66399cccee4c961844e2702db67493740cf5135be15ff6464db11c670c0",
+                    hex"03bb970213f1fa688aa4539d57fa570794d1940d8119ae760fb9179087170f1bd1e6677472ea10a5b8796e2a9c71154f"
+                ]
+            )
         });
         vectors[4] = HashToFieldTestVector({
             message: "abcdef0123456789",
-            elements: __fix([hex"1789c13bcbc00bf22eeb6e017ccc0792686bb75c879438b2bb606614b06274c1f275ebaa79d87ab0f8f4590eec7c44dc"])
+            elements: __fix(
+                [hex"1789c13bcbc00bf22eeb6e017ccc0792686bb75c879438b2bb606614b06274c1f275ebaa79d87ab0f8f4590eec7c44dc"]
+            )
         });
         vectors[5] = HashToFieldTestVector({
             message: "abcdef0123456789",
-            elements: __fix([hex"036b840e26d29e3dae33509d54bbc0954110bb098a921fdd256e675a24a94902918c858c2a246d49efd9d748d58bc65c", hex"0eeb61950fd1701d03921aac67f028bcdec9f9d55e12f70eb35d6fa6da4b0dcebc006759e7e0fd960223594dd7a23621"])
+            elements: __fix(
+                [
+                    hex"036b840e26d29e3dae33509d54bbc0954110bb098a921fdd256e675a24a94902918c858c2a246d49efd9d748d58bc65c",
+                    hex"0eeb61950fd1701d03921aac67f028bcdec9f9d55e12f70eb35d6fa6da4b0dcebc006759e7e0fd960223594dd7a23621"
+                ]
+            )
         });
         vectors[6] = HashToFieldTestVector({
             message: "q128_qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
-            elements: __fix([hex"0ebb15bfb36fc8ccd31f4ac735f8ea0a9a764e5eb18d0d319133af45c7d01b62760c563563e14d2232170c6ff5e3ee5d"])
+            elements: __fix(
+                [hex"0ebb15bfb36fc8ccd31f4ac735f8ea0a9a764e5eb18d0d319133af45c7d01b62760c563563e14d2232170c6ff5e3ee5d"]
+            )
         });
         vectors[7] = HashToFieldTestVector({
             message: "q128_qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
-            elements: __fix([hex"0ed3ec24df4e50a56cc0959e65af3c01a3fc8cda7e88e6920df5e219b30af6e8c6d52bcf2e585ea6040a5469bae21b21", hex"091895aec3037b7cc330d6d0d2d1ce683296d01a1002d69b3c6a4f5fae1aa75f9b7afd055a7610ebcb5220444a938903"])
+            elements: __fix(
+                [
+                    hex"0ed3ec24df4e50a56cc0959e65af3c01a3fc8cda7e88e6920df5e219b30af6e8c6d52bcf2e585ea6040a5469bae21b21",
+                    hex"091895aec3037b7cc330d6d0d2d1ce683296d01a1002d69b3c6a4f5fae1aa75f9b7afd055a7610ebcb5220444a938903"
+                ]
+            )
         });
         vectors[8] = HashToFieldTestVector({
             message: "a512_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            elements: __fix([hex"15a4abea17269052a8653db28ac64b0aeb21ef9bf527628c8e4427bdf64a5e4da147c3898b39dc31591909cfdec9f6f3"])
+            elements: __fix(
+                [hex"15a4abea17269052a8653db28ac64b0aeb21ef9bf527628c8e4427bdf64a5e4da147c3898b39dc31591909cfdec9f6f3"]
+            )
         });
         vectors[9] = HashToFieldTestVector({
             message: "a512_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-            elements: __fix([ hex"0ea9d344b61d06a10b85c9f1382982884b1f33c780360e277c814168d8f546cfb329e042ec84c3701c41fafc8d015c1f", hex"1789449cae4af2241b65fcaf69ef95ba233cf0feabf1aeb27c4e315ead0c7cf69120f1cf05881a284171be12f25c9337"])
+            elements: __fix(
+                [
+                    hex"0ea9d344b61d06a10b85c9f1382982884b1f33c780360e277c814168d8f546cfb329e042ec84c3701c41fafc8d015c1f",
+                    hex"1789449cae4af2241b65fcaf69ef95ba233cf0feabf1aeb27c4e315ead0c7cf69120f1cf05881a284171be12f25c9337"
+                ]
+            )
         });
     }
 }

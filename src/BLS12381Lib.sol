@@ -39,10 +39,14 @@ library BLS12381Lib {
     address constant MAP_FP_TO_G1_PRECOMPILE = address(0x10);
     address constant MAP_FP2_TO_G2_PRECOMPILE = address(0x11);
 
-    bytes constant G1_GENERATOR     = hex"0000000000000000000000000000000017f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb0000000000000000000000000000000008b3f481e3aaa0f1a09e30ed741d8ae4fcf5e095d5d00af600db18cb2c04b3edd03cc744a2888ae40caa232946c5e7e1";
-    bytes constant G1_GENERATOR_NEG = hex"0000000000000000000000000000000017f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb00000000000000000000000000000000114d1d6855d545a8aa7d76c8cf2e21f267816aef1db507c96655b9d5caac42364e6f38ba0ecb751bad54dcd6b939c2ca";
-    bytes constant G2_GENERATOR     = hex"00000000000000000000000000000000024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb80000000000000000000000000000000013e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e000000000000000000000000000000000ce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801000000000000000000000000000000000606c4a02ea734cc32acd2b02bc28b99cb3e287e85a763af267492ab572e99ab3f370d275cec1da1aaa9075ff05f79be";
-    bytes constant G2_GENERATOR_NEG = hex"00000000000000000000000000000000024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb80000000000000000000000000000000013e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e000000000000000000000000000000000d1b3cc2c7027888be51d9ef691d77bcb679afda66c73f17f9ee3837a55024f78c71363275a75d75d86bab79f74782aa0000000000000000000000000000000013fa4d4a0ad8b1ce186ed5061789213d993923066dddaf1040bc3ff59f825c78df74f2d75467e25e0f55f8a00fa030ed";
+    bytes constant G1_GENERATOR =
+        hex"0000000000000000000000000000000017f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb0000000000000000000000000000000008b3f481e3aaa0f1a09e30ed741d8ae4fcf5e095d5d00af600db18cb2c04b3edd03cc744a2888ae40caa232946c5e7e1";
+    bytes constant G1_GENERATOR_NEG =
+        hex"0000000000000000000000000000000017f1d3a73197d7942695638c4fa9ac0fc3688c4f9774b905a14e3a3f171bac586c55e83ff97a1aeffb3af00adb22c6bb00000000000000000000000000000000114d1d6855d545a8aa7d76c8cf2e21f267816aef1db507c96655b9d5caac42364e6f38ba0ecb751bad54dcd6b939c2ca";
+    bytes constant G2_GENERATOR =
+        hex"00000000000000000000000000000000024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb80000000000000000000000000000000013e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e000000000000000000000000000000000ce5d527727d6e118cc9cdc6da2e351aadfd9baa8cbdd3a76d429a695160d12c923ac9cc3baca289e193548608b82801000000000000000000000000000000000606c4a02ea734cc32acd2b02bc28b99cb3e287e85a763af267492ab572e99ab3f370d275cec1da1aaa9075ff05f79be";
+    bytes constant G2_GENERATOR_NEG =
+        hex"00000000000000000000000000000000024aa2b2f08f0a91260805272dc51051c6e47ad4fa403b02b4510b647ae3d1770bac0326a805bbefd48056c8c121bdb80000000000000000000000000000000013e02b6052719f607dacd3a088274f65596bd0d09920b61ab5da61bbdc7f5049334cf11213945d57e5ac7d055d042b7e000000000000000000000000000000000d1b3cc2c7027888be51d9ef691d77bcb679afda66c73f17f9ee3837a55024f78c71363275a75d75d86bab79f74782aa0000000000000000000000000000000013fa4d4a0ad8b1ce186ed5061789213d993923066dddaf1040bc3ff59f825c78df74f2d75467e25e0f55f8a00fa030ed";
 
     /**
      * @dev Returns the generator point of the G1 group on BLS12-381
@@ -50,7 +54,9 @@ library BLS12381Lib {
      */
     function g1Generator() internal pure returns (_T.G1Point result) {
         bytes memory _g1Generator = G1_GENERATOR;
-        assembly { result := _g1Generator }
+        assembly {
+            result := _g1Generator
+        }
     }
 
     /**
@@ -59,7 +65,9 @@ library BLS12381Lib {
      */
     function g2Generator() internal pure returns (_T.G2Point result) {
         bytes memory _g2Generator = G2_GENERATOR;
-        assembly { result := _g2Generator } 
+        assembly {
+            result := _g2Generator
+        }
     }
 
     /**
@@ -105,7 +113,9 @@ library BLS12381Lib {
         bytes memory input = bytes.concat(G1_GENERATOR, abi.encode(scalar));
         (bool success, bytes memory resultBytes) = G1_MSM_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
-        assembly { result := resultBytes }
+        assembly {
+            result := resultBytes
+        }
     }
 
     /**
@@ -117,7 +127,9 @@ library BLS12381Lib {
         bytes memory input = bytes.concat(G2_GENERATOR, abi.encode(scalar));
         (bool success, bytes memory resultBytes) = G2_MSM_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
-        assembly { result := resultBytes }
+        assembly {
+            result := resultBytes
+        }
     }
 
     /**
@@ -130,7 +142,9 @@ library BLS12381Lib {
         bytes memory input = bytes.concat(point.mem(), abi.encode(scalar));
         (bool success, bytes memory resultBytes) = G1_MSM_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
-        assembly { result := resultBytes }
+        assembly {
+            result := resultBytes
+        }
     }
 
     /**
@@ -143,7 +157,9 @@ library BLS12381Lib {
         bytes memory input = bytes.concat(point.mem(), abi.encode(scalar));
         (bool success, bytes memory resultBytes) = G2_MSM_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
-        assembly { result := resultBytes }
+        assembly {
+            result := resultBytes
+        }
     }
 
     /**
@@ -156,7 +172,9 @@ library BLS12381Lib {
         bytes memory input = bytes.concat(point1.mem(), point2.mem());
         (bool success, bytes memory resultBytes) = G1_ADD_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
-        assembly { result := resultBytes }
+        assembly {
+            result := resultBytes
+        }
     }
 
     /**
@@ -169,7 +187,9 @@ library BLS12381Lib {
         bytes memory input = bytes.concat(point1.mem(), point2.mem());
         (bool success, bytes memory resultBytes) = G2_ADD_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
-        assembly { result := resultBytes }
+        assembly {
+            result := resultBytes
+        }
     }
 
     /**
@@ -181,7 +201,9 @@ library BLS12381Lib {
         bytes memory input = element.mem();
         (bool success, bytes memory resultBytes) = MAP_FP_TO_G1_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
-        assembly { result := resultBytes }
+        assembly {
+            result := resultBytes
+        }
     }
 
     /**
@@ -193,7 +215,9 @@ library BLS12381Lib {
         bytes memory input = element.mem();
         (bool success, bytes memory resultBytes) = MAP_FP2_TO_G2_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
-        assembly { result := resultBytes }
+        assembly {
+            result := resultBytes
+        }
     }
 
     function x(_T.G1Point point) internal pure returns (_T.Fp result) {
@@ -231,35 +255,50 @@ library BLS12381Lib {
             result := resultBytes
         }
     }
-    
 
     /**
      * @dev Converts an Fp field element to its byte representation
      * @param element The Fp field element to convert
      * @return result The byte representation of the field element
      */
-    function mem(_T.Fp element) internal pure returns (bytes memory result) { assembly { result := element } }
+    function mem(_T.Fp element) internal pure returns (bytes memory result) {
+        assembly {
+            result := element
+        }
+    }
 
     /**
      * @dev Converts an Fp2 field element to its byte representation
      * @param element The Fp2 field element to convert
      * @return result The byte representation of the field element
      */
-    function mem(_T.Fp2 element) internal pure returns (bytes memory result) { assembly { result := element } }
+    function mem(_T.Fp2 element) internal pure returns (bytes memory result) {
+        assembly {
+            result := element
+        }
+    }
 
     /**
      * @dev Converts a G1 curve point to its byte representation
      * @param point The G1 curve point to convert
      * @return result The byte representation of the curve point
      */
-    function mem(_T.G1Point point) internal pure returns (bytes memory result) { assembly { result := point } }
+    function mem(_T.G1Point point) internal pure returns (bytes memory result) {
+        assembly {
+            result := point
+        }
+    }
 
     /**
      * @dev Converts a G2 curve point to its byte representation
      * @param point The G2 curve point to convert
      * @return result The byte representation of the curve point
      */
-    function mem(_T.G2Point point) internal pure returns (bytes memory result) { assembly { result := point } }
+    function mem(_T.G2Point point) internal pure returns (bytes memory result) {
+        assembly {
+            result := point
+        }
+    }
 
     // TODO: consider moving errors to an interface so it can be inherited by contracts
     /**
@@ -292,7 +331,8 @@ library RFC9380 {
     // ceil((381 + 128) / 8) = 64
     uint256 constant L = 64;
     // BLS12-381 base field prime
-    bytes constant P = hex"1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab";
+    bytes constant P =
+        hex"1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab";
     string constant HASH_TO_G1_DST = "QUUX-V01-CS02-with-BLS12381G1_XMD:SHA-256_SSWU_RO_";
     string constant HASH_TO_G2_DST = "QUUX-V01-CS02-with-BLS12381G2_XMD:SHA-256_SSWU_RO_";
 
@@ -326,18 +366,18 @@ library RFC9380 {
      * @param count The number of field elements to generate
      * @return result An array of count field elements in Fp
      */
-    function hashToFp(
-        bytes memory input,
-        string memory dst, 
-        uint256 count
-    ) internal view returns (IBLSTypes.Fp[] memory result) {
+    function hashToFp(bytes memory input, string memory dst, uint256 count)
+        internal
+        view
+        returns (IBLSTypes.Fp[] memory result)
+    {
         result = new IBLSTypes.Fp[](count);
         uint16 length_in_bytes = uint16(count * L);
         bytes memory uniform_bytes = expandMessageXMD(input, dst, length_in_bytes);
         for (uint256 i = 0; i < count; i++) {
             // m - 1 = 0, so no loop
             // L * (j + i * m), m = 1, j = 0 => L * i
-            uint256 elm_offset =  L * i;
+            uint256 elm_offset = L * i;
             bytes memory slice = new bytes(L);
             assembly {
                 mcopy(add(slice, 0x20), add(add(uniform_bytes, 0x20), elm_offset), L)
@@ -356,7 +396,11 @@ library RFC9380 {
     }
 
     // m = 2, extension field degree
-    function hashToFp2(bytes memory input, string memory dst, uint256 count) internal view returns (IBLSTypes.Fp2[] memory result) {
+    function hashToFp2(bytes memory input, string memory dst, uint256 count)
+        internal
+        view
+        returns (IBLSTypes.Fp2[] memory result)
+    {
         result = new IBLSTypes.Fp2[](count);
         uint16 length_in_bytes = uint16(count * L * 2);
         bytes memory uniform_bytes = expandMessageXMD(input, dst, length_in_bytes);
@@ -366,7 +410,7 @@ library RFC9380 {
             // L * (j + i * m), m = 2, j = 1 => L * (2i + 1)
             bytes memory result_i_bytes = new bytes(L * 2);
             for (uint256 j = 0; j < 2; j++) {
-                uint256 elm_offset =  L * (j + i * 2);
+                uint256 elm_offset = L * (j + i * 2);
                 bytes memory slice = new bytes(L);
                 assembly {
                     mcopy(add(slice, 0x20), add(add(uniform_bytes, 0x20), elm_offset), L)
@@ -400,11 +444,11 @@ library RFC9380 {
      * @param len_in_bytes The desired length of the output in bytes.
      * @return result The expanded message as a byte array.
      */
-    function expandMessageXMD(
-        bytes memory message,
-        string memory dst,
-        uint16 len_in_bytes
-    ) internal pure returns (bytes memory result) {
+    function expandMessageXMD(bytes memory message, string memory dst, uint16 len_in_bytes)
+        internal
+        pure
+        returns (bytes memory result)
+    {
         // Step 1: Calculate ell
         uint256 ell = (len_in_bytes + B_IN_BYTES - 1) / B_IN_BYTES;
 
