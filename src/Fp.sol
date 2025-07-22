@@ -56,25 +56,27 @@ library Fp381 {
         }
     }
 
-    // I'm pretty sure this function allocates a bunch of unecessary memory
+    // TODO: This is implemented really inefficiently but only because
+    // when I implemented it efficiently I had the weirdest memory bugs
     function clean(_T.DirtyFp2 a) internal view returns (_T.Fp2 result) {
-        bytes memory resultBytes = new bytes(128);  // TODO: I'm not sure if simply declaring result in the return type is enoguh to allocate memory 
-        bytes memory fpWord = new bytes(64);
+        _T.DirtyFp a0;
+        _T.DirtyFp a1;
+        bytes memory a0Bytes = new bytes(64);
+        bytes memory a1Bytes = new bytes(64);
         assembly {
+            a0 := a0Bytes
+            a1 := a1Bytes
+            mcopy(add(a0Bytes, 0x20), add(a, 0x20), 64)
+            mcopy(add(a1Bytes, 0x20), add(a, 0x60), 64)
+        }
+        _T.Fp a0Clean = Fp381.clean(a0);
+        _T.Fp a1Clean = Fp381.clean(a1);
+        bytes memory resultBytes = new bytes(128);
+        assembly {
+            mcopy(add(resultBytes, 0x20), add(a0Clean, 0x20), 64)
+            mcopy(add(resultBytes, 0x60), add(a1Clean, 0x20), 64)
             result := resultBytes
-            mcopy(add(fpWord, 0x20), add(a, 0x20), 64)
         }
-        bytes memory res1 = Math.modExp(fpWord, hex"01", P);
-        uint256 pad = 64 - res1.length;
-        assembly {
-            mcopy(add(add(resultBytes, 0x20), pad), add(res1, 0x20), 64)
-        }
-        bytes memory res2 = Math.modExp(fpWord, hex"01", P);
-        pad = 64 - res2.length;
-        assembly {
-            mcopy(add(add(resultBytes, 0x60), pad), add(res2, 0x20), 64)
-        }
-        return result;
     }
 
     function nullify(_T.DirtyFp a) internal pure {
