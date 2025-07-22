@@ -2,33 +2,16 @@
 pragma solidity >=0.8.25;
 
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
-
-// internal name
-interface _T {
-    // pointers to bytes
-    // NOTE: these types cannot be used in calldata
-    type Fp is uint256;
-    type Fp2 is uint256;
-    type G1Point is uint256;
-    type G2Point is uint256;
-
-    struct Signature {
-        // if short signature, pk is 256 bytes (G2), otherwise 128 bytes (G1)
-        bytes pk;
-        // if short signature, signature is 128 bytes (G1), otherwise 256 bytes (G2)
-        bytes signature;
-        bytes message;
-    }
-}
-
-// external name
-interface IBLSTypes is _T {}
+import {Fp381} from "./Fp.sol";
+import {_T, IBLSTypes} from "./interface/Types.sol";
 
 library BLS12381Lib {
     using BLS12381Lib for _T.G1Point;
     using BLS12381Lib for _T.G2Point;
     using BLS12381Lib for _T.Fp;
     using BLS12381Lib for _T.Fp2;
+    using Fp381 for _T.Fp;
+    using Fp381 for _T.Fp2;
 
     // BLS12-381 precompile addresses
     address constant G1_ADD_PRECOMPILE = address(0x0B);
@@ -197,7 +180,7 @@ library BLS12381Lib {
      * @param element The Fp field element to map to G1
      * @return result The resulting G1 point after mapping
      */
-    function mapFpToG1(IBLSTypes.Fp element) internal view returns (_T.G1Point result) {
+    function mapFpToG1(_T.Fp element) internal view returns (_T.G1Point result) {
         bytes memory input = element.mem();
         (bool success, bytes memory resultBytes) = MAP_FP_TO_G1_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
@@ -211,7 +194,7 @@ library BLS12381Lib {
      * @param element The Fp2 field element to map to G2
      * @return result The resulting G2 point after mapping
      */
-    function mapFp2ToG2(IBLSTypes.Fp2 element) internal view returns (_T.G2Point result) {
+    function mapFp2ToG2(_T.Fp2 element) internal view returns (_T.G2Point result) {
         bytes memory input = element.mem();
         (bool success, bytes memory resultBytes) = MAP_FP2_TO_G2_PRECOMPILE.staticcall(input);
         require(success, PrecompileError(resultBytes));
@@ -253,28 +236,6 @@ library BLS12381Lib {
         assembly {
             mcopy(add(resultBytes, 0x20), add(pointBytes, 0xA0), 0x80)
             result := resultBytes
-        }
-    }
-
-    /**
-     * @dev Converts an Fp field element to its byte representation
-     * @param element The Fp field element to convert
-     * @return result The byte representation of the field element
-     */
-    function mem(_T.Fp element) internal pure returns (bytes memory result) {
-        assembly {
-            result := element
-        }
-    }
-
-    /**
-     * @dev Converts an Fp2 field element to its byte representation
-     * @param element The Fp2 field element to convert
-     * @return result The byte representation of the field element
-     */
-    function mem(_T.Fp2 element) internal pure returns (bytes memory result) {
-        assembly {
-            result := element
         }
     }
 
@@ -369,9 +330,9 @@ library RFC9380 {
     function hashToFp(bytes memory input, string memory dst, uint256 count)
         internal
         view
-        returns (IBLSTypes.Fp[] memory result)
+        returns (_T.Fp[] memory result)
     {
-        result = new IBLSTypes.Fp[](count);
+        result = new _T.Fp[](count);
         uint16 length_in_bytes = uint16(count * L);
         bytes memory uniform_bytes = expandMessageXMD(input, dst, length_in_bytes);
         for (uint256 i = 0; i < count; i++) {
@@ -399,9 +360,9 @@ library RFC9380 {
     function hashToFp2(bytes memory input, string memory dst, uint256 count)
         internal
         view
-        returns (IBLSTypes.Fp2[] memory result)
+        returns (_T.Fp2[] memory result)
     {
-        result = new IBLSTypes.Fp2[](count);
+        result = new _T.Fp2[](count);
         uint16 length_in_bytes = uint16(count * L * 2);
         bytes memory uniform_bytes = expandMessageXMD(input, dst, length_in_bytes);
         for (uint256 i = 0; i < count; i++) {
