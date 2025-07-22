@@ -40,7 +40,15 @@ contract FpTest is Test, FpFixtures {
     }
 
     function test_inverseFp2() public {
-        // TODO
+        InverseTestFp2 memory test_ = inverseTestsFp2[0];
+        _T.DirtyFp2 dirtyFp2 = Fp381.newFp2(test_.input);
+        _T.Fp2 fp2 = Fp381.clean(dirtyFp2);
+        // bytes memory asMemDirty = Fp381.mem(dirtyFp2);
+        // bytes memory asMemClean = Fp381.mem(fp2);
+        // console.logBytes(asMemDirty);
+        // console.logBytes(asMemClean);
+        _T.Fp2 invertedFp2 = Fp381.inverse(fp2);
+        assertEq(Fp381.mem(invertedFp2), test_.outputClean);
         // for (uint i = 0; i < inverseTestsFp2.length; i++) {
         //     InverseTestFp2 memory test_ = inverseTestsFp2[i];
         //     _T.Fp2 fp2 = Fp381.clean(Fp381.newFp2(test_.input));

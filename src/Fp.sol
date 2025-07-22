@@ -58,23 +58,38 @@ library Fp381 {
 
     // I'm pretty sure this function allocates a bunch of unecessary memory
     function clean(_T.DirtyFp2 a) internal view returns (_T.Fp2 result) {
-        bytes memory resultBytes = new bytes(128);  // TODO: I'm not sure if simply declaring result in the return type is enoguh to allocate memory 
+        bytes memory resultBytes = new bytes(128);
+        // console.log("step 1");
+        // console.logBytes(resultBytes);
         bytes memory fpWord = new bytes(64);
         assembly {
-            result := resultBytes
             mcopy(add(fpWord, 0x20), add(a, 0x20), 64)
         }
+        // console.log("step 2");
+        // console.logBytes(resultBytes);
         bytes memory res1 = Math.modExp(fpWord, hex"01", P);
+        // bytes memory a = hex"00";
+        // ---------------------------//
+        // Toggling this line on and off fixes the memory bug
+        // ---------------------------//
+        // console.log("step 3");
+        // ---------------------------//
+        // console.logBytes(resultBytes);
         uint256 pad = 64 - res1.length;
         assembly {
             mcopy(add(add(resultBytes, 0x20), pad), add(res1, 0x20), 64)
+            mcopy(add(fpWord, 0x20), add(a, 0x60), 64)
         }
+        // console.log("step 4");
+        // console.logBytes(resultBytes);
         bytes memory res2 = Math.modExp(fpWord, hex"01", P);
         pad = 64 - res2.length;
         assembly {
             mcopy(add(add(resultBytes, 0x60), pad), add(res2, 0x20), 64)
+            result := resultBytes
         }
-        return result;
+        // console.log("step 5");
+        // console.logBytes(resultBytes);
     }
 
     function nullify(_T.DirtyFp a) internal pure {
@@ -196,7 +211,16 @@ library Fp381 {
             dest1 := add(dest, 0x40)
         }
 
-        isUnderflow = Fp381.sub(a0, b0, dest0) || Fp381.sub(a1, b1, dest1);
+
+        bool isUnderflow0 = Fp381.sub(a0, b0, dest0);
+        bool isUnderflow1 = Fp381.sub(a1, b1, dest1);
+
+        console.logBytes(Fp381.mem(b));
+
+        console.log("isUnderflow0", isUnderflow0);
+        console.log("isUnderflow1", isUnderflow1);
+
+        isUnderflow = isUnderflow0 || isUnderflow1;
     }
 
     function inverse(_T.Fp a) internal pure returns (_T.Fp result) {
