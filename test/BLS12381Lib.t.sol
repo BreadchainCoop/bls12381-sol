@@ -121,6 +121,7 @@ contract BLS12381LibTest is Test, IBLSTypes {
     // mutation
     function test_verifySignatureG1_negative(bytes memory message, uint256 sk, uint256 mutation) public view {
         vm.assume(sk > 0);
+        vm.assume(sk != mutation);
         G1Point q = RFC9380.hashToG1(message);
         G1Point r = q.mulG1(sk);
         G2Point _pk = BLS12381Lib.g2Generator().mulG2(sk);
@@ -150,6 +151,7 @@ contract BLS12381LibTest is Test, IBLSTypes {
 
     function test_verifySignatureG2_negative(bytes memory message, uint256 sk, uint256 mutation) public view {
         vm.assume(sk > 0);
+        vm.assume(sk != mutation);
         G2Point q = RFC9380.hashToG2(message);
         G2Point r = q.mulG2(sk);
         G1Point pk = BLS12381Lib.g1Generator().mulG1(sk);
