@@ -2,7 +2,7 @@
 pragma solidity ^0.8.16;
 
 import {console, Test} from "forge-std/Test.sol";
-import {RFC9380, BLS12381Lib, IBLSTypes} from "@src/BLS12381Lib.sol";
+import {RFC9380, BLS12381Lib, Fp381, IBLSTypes} from "@src/BLS12381Lib.sol";
 
 interface IRFC9380Types {
     struct ExpandMessageXMDTestVector {
@@ -282,6 +282,8 @@ contract RFC9380Test is
     using BLS12381Lib for Fp2;
     using BLS12381Lib for G1Point;
     using BLS12381Lib for G2Point;
+    using Fp381 for Fp;
+    using Fp381 for Fp2;
 
     function test_hash_to_curve_g1() public view {
         HashToG1TestVector[] memory vectors = hashToG1TestVectors();
