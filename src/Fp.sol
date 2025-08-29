@@ -13,9 +13,10 @@ library Fp381 {
     function newFp(bytes memory a) internal pure returns (_T.DirtyFp result) {
         require(a.length <= 64, FpInputTooLarge(a.length));
         bytes memory resultBytes = new bytes(64);
-        uint256 pad = 64 - a.length;
+        uint256 length = a.length;
+        uint256 pad = 64 - length;
         assembly {
-            mcopy(add(add(resultBytes, 0x20), pad), add(a, 0x20), 64)
+            mcopy(add(add(resultBytes, 0x20), pad), add(a, 0x20), length)
             result := resultBytes
         }
     }
@@ -23,9 +24,10 @@ library Fp381 {
     function newFp2(bytes memory a) internal pure returns (_T.DirtyFp2 result) {
         require(a.length <= 128, Fp2InputTooLarge(a.length));
         bytes memory resultBytes = new bytes(128);
-        uint256 pad = 128 - a.length;
+        uint256 length = a.length;
+        uint256 pad = 128 - length;
         assembly {
-            mcopy(add(add(resultBytes, 0x20), pad), add(a, 0x20), 128)
+            mcopy(add(add(resultBytes, 0x20), pad), add(a, 0x20), length)
             result := resultBytes
         }
     }
@@ -48,10 +50,11 @@ library Fp381 {
             aBytes := a
         }
         aBytes = Math.modExp(aBytes, hex"01", P);
-        uint256 pad = 64 - aBytes.length;
+        uint256 length = aBytes.length;
+        uint256 pad = 64 - length;
         bytes memory fp_bytes = new bytes(64);
         assembly {
-            mcopy(add(add(fp_bytes, 0x20), pad), add(aBytes, 0x20), 64)
+            mcopy(add(add(fp_bytes, 0x20), pad), add(aBytes, 0x20), length)
             result := fp_bytes
         }
     }
@@ -141,12 +144,16 @@ library Fp381 {
         assembly {
             let a_lower := mload(add(a, 0x40))
             let b_lower := mload(add(b, 0x40))
-            let is_carry := lt(a_lower, b_lower)
+            let is_borrow := lt(a_lower, b_lower)
             c := sub(a_lower, b_lower)
             let a_upper := mload(add(a, 0x20))
             let b_upper := mload(add(b, 0x20))
-            isUnderflow := or(lt(a_upper, is_carry), lt(a_upper, b_upper))
-            d := sub(sub(a_upper, b_upper), is_carry)
+            isUnderflow := or(
+                gt(b_upper, sub(a_upper, is_borrow)),
+                lt(a_upper, is_borrow) // special case if a_upper is 0 and is_borrow is 1
+            )
+            
+            d := sub(sub(a_upper, b_upper), is_borrow)
         }
         if (isUnderflow) {
             return true;
