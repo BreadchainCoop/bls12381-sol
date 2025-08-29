@@ -11,7 +11,7 @@ contract FpTest is Test, FpFixtures {
     using Fp381 for _T.DirtyFp2;
 
     function test_clean() public {
-        for (uint i = 0; i < cleanTests.length; i++) {
+        for (uint256 i = 0; i < cleanTests.length; i++) {
             CleanTest memory test_ = cleanTests[i];
             _T.DirtyFp dirtyFp = Fp381.newFp(test_.input);
             _T.Fp cleanFp = Fp381.clean(dirtyFp);
@@ -20,7 +20,7 @@ contract FpTest is Test, FpFixtures {
     }
 
     function test_nullify() public {
-        for (uint i = 0; i < nullifyTests.length; i++) {
+        for (uint256 i = 0; i < nullifyTests.length; i++) {
             NullifyTest memory test_ = nullifyTests[i];
             _T.DirtyFp dirtyFp = Fp381.newFp(test_.input);
             Fp381.nullify(dirtyFp);
@@ -31,7 +31,7 @@ contract FpTest is Test, FpFixtures {
     }
 
     function test_inverseFp1() public {
-        for (uint i = 0; i < inverseTestsFp1.length; i++) {
+        for (uint256 i = 0; i < inverseTestsFp1.length; i++) {
             InverseTestFp1 memory test_ = inverseTestsFp1[i];
             _T.Fp fp = Fp381.clean(Fp381.newFp(test_.input));
             _T.Fp invertedFp = Fp381.inverse(fp);
@@ -40,7 +40,7 @@ contract FpTest is Test, FpFixtures {
     }
 
     function test_inverseFp2() public {
-        for (uint i = 0; i < inverseTestsFp2.length; i++) {
+        for (uint256 i = 0; i < inverseTestsFp2.length; i++) {
             InverseTestFp2 memory test_ = inverseTestsFp2[i];
             _T.Fp2 fp2 = Fp381.clean(Fp381.newFp2(test_.input));
             _T.Fp2 invertedFp2 = Fp381.inverse(fp2);
@@ -59,7 +59,7 @@ contract FpTest is Test, FpFixtures {
     }
 
     function test_subFp1() public {
-        for (uint i = 0; i < subTestsFp1.length; i++) {
+        for (uint256 i = 0; i < subTestsFp1.length; i++) {
             SubTestFp1 memory test_ = subTestsFp1[i];
             _T.DirtyFp a = Fp381.newFp(test_.inputA);
             _T.DirtyFp b = Fp381.newFp(test_.inputB);
@@ -73,7 +73,7 @@ contract FpTest is Test, FpFixtures {
     }
 
     function test_addFp2() public {
-        for (uint i = 0; i < addTestsFp2.length; i++) {
+        for (uint256 i = 0; i < addTestsFp2.length; i++) {
             AddTestFp2 memory test_ = addTestsFp2[i];
             _T.DirtyFp2 a = Fp381.newFp2(test_.inputA);
             _T.DirtyFp2 b = Fp381.newFp2(test_.inputB);
@@ -88,7 +88,7 @@ contract FpTest is Test, FpFixtures {
     }
 
     function test_subFp2() public {
-        for (uint i = 0; i < subTestsFp2.length; i++) {
+        for (uint256 i = 0; i < subTestsFp2.length; i++) {
             SubTestFp2 memory test_ = subTestsFp2[i];
             _T.DirtyFp2 a = Fp381.newFp2(test_.inputA);
             _T.DirtyFp2 b = Fp381.newFp2(test_.inputB);

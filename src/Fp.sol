@@ -6,9 +6,12 @@ import {_T} from "./interface/Types.sol";
 import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
 
 library Fp381 {
-    bytes constant P     = hex"1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab";
-    bytes constant P64   = hex"000000000000000000000000000000001a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab";
-    bytes constant P64_2 = hex"000000000000000000000000000000001a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab000000000000000000000000000000001a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab";
+    bytes constant P =
+        hex"1a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab";
+    bytes constant P64 =
+        hex"000000000000000000000000000000001a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab";
+    bytes constant P64_2 =
+        hex"000000000000000000000000000000001a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab000000000000000000000000000000001a0111ea397fe69a4b1ba7b6434bacd764774b84f38512bf6730d2a0f6b0f6241eabfffeb153ffffb9feffffffffaaab";
 
     function newFp(bytes memory a) internal pure returns (_T.DirtyFp result) {
         require(a.length <= 64, FpInputTooLarge(a.length));
@@ -148,11 +151,12 @@ library Fp381 {
             c := sub(a_lower, b_lower)
             let a_upper := mload(add(a, 0x20))
             let b_upper := mload(add(b, 0x20))
-            isUnderflow := or(
-                gt(b_upper, sub(a_upper, is_borrow)),
-                lt(a_upper, is_borrow) // special case if a_upper is 0 and is_borrow is 1
-            )
-            
+            isUnderflow :=
+                or(
+                    gt(b_upper, sub(a_upper, is_borrow)),
+                    lt(a_upper, is_borrow) // special case if a_upper is 0 and is_borrow is 1
+                )
+
             d := sub(sub(a_upper, b_upper), is_borrow)
         }
         if (isUnderflow) {
